@@ -12,7 +12,8 @@ import {
 } from "@/components/ui/table";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
-
+export const dynamicParams = true;
+export const revalidate = 60;
 const Dashboard = async () => {
   const invoices = await getInvoices();
   return (
