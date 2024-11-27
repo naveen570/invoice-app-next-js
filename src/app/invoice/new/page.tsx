@@ -1,4 +1,4 @@
-import { AddInvoice } from "@/components/invoices/add-invoice";
+import { AddInvoice } from "@/components/invoice/add-invoice";
 import React from "react";
 
 const InvoiceNew = async () => {

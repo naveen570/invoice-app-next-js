@@ -1,5 +1,6 @@
+import { getInvoices } from "@/actions/invoices";
+import { InvoiceRow } from "@/components/invoice/invoice-row";
 import { Button } from "@/components/ui/button";
-import { StatusBadge } from "@/components/ui/status-badge";
 import {
   Table,
   TableBody,
@@ -11,38 +12,9 @@ import {
 } from "@/components/ui/table";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
-type Invoice = {
-  date: string;
-  customer: string;
-  email: string;
-  status: "open" | "closed" | "completed";
-  value: string;
-};
 
-const invoices: Invoice[] = [
-  {
-    date: "INV001",
-    customer: "Paid",
-    email: "$250.00",
-    status: "open",
-    value: "$250.00",
-  },
-  {
-    date: "INV002",
-    customer: "Pending",
-    email: "$150.00",
-    status: "closed",
-    value: "$250.00",
-  },
-  {
-    date: "INV003",
-    customer: "Unpaid",
-    email: "$350.00",
-    status: "completed",
-    value: "$250.00",
-  },
-];
-const Dashboard = () => {
+const Dashboard = async () => {
+  const invoices = await getInvoices();
   return (
     <main>
       <header className="flex justify-between flex-wrap py-4">
@@ -57,7 +29,7 @@ const Dashboard = () => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-24">Date</TableHead>
+            <TableHead>Date</TableHead>
             <TableHead>Customer</TableHead>
             <TableHead>Email</TableHead>
             <TableHead className="text-center">Status</TableHead>
@@ -66,17 +38,7 @@ const Dashboard = () => {
         </TableHeader>
         <TableBody>
           {invoices.map((invoice) => (
-            <TableRow key={invoice.date}>
-              <TableCell className="font-medium">{invoice.date}</TableCell>
-              <TableCell className="font-medium">{invoice.customer}</TableCell>
-              <TableCell>{invoice.email}</TableCell>
-              <TableCell className="text-center">
-                <StatusBadge variant={invoice.status}>
-                  {invoice.status}
-                </StatusBadge>
-              </TableCell>
-              <TableCell className="text-right">{invoice.value}</TableCell>
-            </TableRow>
+            <InvoiceRow key={invoice.invoice_id} invoice={invoice} />
           ))}
         </TableBody>
         <TableFooter>

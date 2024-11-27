@@ -11,7 +11,7 @@ import { z } from "zod";
 export const statusEnum = pgEnum("status", ["open", "closed", "completed"]);
 export const Invoices = pgTable("invoices", {
   invoice_id: serial("invoice_id").primaryKey(),
-  create_ts: timestamp("create_ts").defaultNow().notNull(),
+  createTs: timestamp("create_ts").defaultNow().notNull(),
   value: real("value").default(0).notNull(),
   description: text("description").notNull(),
   status: statusEnum("status").notNull(),
