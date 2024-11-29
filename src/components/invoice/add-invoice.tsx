@@ -16,7 +16,6 @@ import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { addInvoice } from "@/actions/invoices";
 import { Loader } from "lucide-react";
-import { redirect } from "next/navigation";
 
 const addInvoiceSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -41,15 +40,11 @@ export const AddInvoice = () => {
     formState: { isSubmitting },
   } = form;
   const onSubmit = async (data: AddInvoiceForm) => {
-    const result = await addInvoice({
+    await addInvoice({
       value: data.value,
       description: data.description ?? "",
       status: "open",
     });
-    if (result === 1) {
-      redirect("/dashboard");
-    }
-    console.log(result);
   };
   return (
     <Form {...form}>

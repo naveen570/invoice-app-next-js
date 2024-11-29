@@ -3,14 +3,15 @@
 import { Invoice } from "@/db/schema";
 import { StatusBadge } from "../ui/status-badge";
 import { TableCell, TableRow } from "../ui/table";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export const InvoiceRow = ({ invoice }: { invoice: Invoice }) => {
+  const router = useRouter();
   return (
     <TableRow
       className="cursor-pointer"
       onClick={() => {
-        redirect(`/invoice/${invoice.invoice_id}`);
+        router.push(`/invoice/${invoice.invoice_id}`);
       }}
     >
       <TableCell className="font-medium">
